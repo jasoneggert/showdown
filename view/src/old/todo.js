@@ -32,7 +32,7 @@ const styles = (theme) => ({
 	appBar: {
 		position: 'relative'
 	},
-	title: {
+	name: {
 		marginLeft: theme.spacing(2),
 		flex: 1
 	},
@@ -93,15 +93,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-class todo extends Component {
+class recipe extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			todos: '',
-			title: '',
+			recipes: '',
+			name: '',
 			body: '',
-			todoId: '',
+			recipeId: '',
 			errors: [],
 			open: false,
 			uiLoading: true,
@@ -109,7 +109,7 @@ class todo extends Component {
 			viewOpen: false
 		};
 
-		this.deleteTodoHandler = this.deleteTodoHandler.bind(this);
+		this.deleterecipeHandler = this.deleterecipeHandler.bind(this);
 		this.handleEditClickOpen = this.handleEditClickOpen.bind(this);
 		this.handleViewOpen = this.handleViewOpen.bind(this);
 	}
@@ -125,10 +125,10 @@ class todo extends Component {
 		const authToken = localStorage.getItem('AuthToken');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.get('/todos')
+			.get('/recipes')
 			.then((response) => {
 				this.setState({
-					todos: response.data,
+					recipes: response.data,
 					uiLoading: false
 				});
 			})
@@ -137,13 +137,13 @@ class todo extends Component {
 			});
 	};
 
-	deleteTodoHandler(data) {
+	deleterecipeHandler(data) {
 		authMiddleWare(this.props.history);
 		const authToken = localStorage.getItem('AuthToken');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
-		let todoId = data.todo.todoId;
+		let recipeId = data.recipe.recipeId;
 		axios
-			.delete(`todo/${todoId}`)
+			.delete(`recipe/${recipeId}`)
 			.then(() => {
 				window.location.reload();
 			})
@@ -154,9 +154,9 @@ class todo extends Component {
 
 	handleEditClickOpen(data) {
 		this.setState({
-			title: data.todo.title,
-			body: data.todo.body,
-			todoId: data.todo.todoId,
+			name: data.recipe.name,
+			body: data.recipe.body,
+			recipeId: data.recipe.recipeId,
 			buttonType: 'Edit',
 			open: true
 		});
@@ -164,8 +164,8 @@ class todo extends Component {
 
 	handleViewOpen(data) {
 		this.setState({
-			title: data.todo.title,
-			body: data.todo.body,
+			name: data.recipe.name,
+			body: data.recipe.body,
 			viewOpen: true
 		});
 	}
@@ -197,8 +197,8 @@ class todo extends Component {
 
 		const handleClickOpen = () => {
 			this.setState({
-				todoId: '',
-				title: '',
+				recipeId: '',
+				name: '',
 				body: '',
 				buttonType: '',
 				open: true
@@ -206,24 +206,27 @@ class todo extends Component {
 		};
 
 		const handleSubmit = (event) => {
+			console.log('event: ', event);
 			authMiddleWare(this.props.history);
 			event.preventDefault();
-			const userTodo = {
-				title: this.state.title,
-				body: this.state.body
-			};
+			const recipe = {
+				name: this.state.name,
+				prep: this.state.prep,
+				deathMatches: [],
+				ingredients: this.state.ingredients
+			}
 			let options = {};
 			if (this.state.buttonType === 'Edit') {
 				options = {
-					url: `/todo/${this.state.todoId}`,
+					url: `/recipe/${this.state.recipeId}`,
 					method: 'put',
-					data: userTodo
+					data: recipe
 				};
 			} else {
 				options = {
-					url: '/todo',
+					url: '/recipe',
 					method: 'post',
-					data: userTodo
+					data: recipe
 				};
 			}
 			const authToken = localStorage.getItem('AuthToken');
@@ -262,7 +265,7 @@ class todo extends Component {
 					<IconButton
 						className={classes.floatingButton}
 						color="primary"
-						aria-label="Add Todo"
+						aria-label="Add recipe"
 						onClick={handleClickOpen}
 					>
 						<AddCircleIcon style={{ fontSize: 60 }} />
@@ -273,8 +276,8 @@ class todo extends Component {
 								<IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
 									<CloseIcon />
 								</IconButton>
-								<Typography variant="h6" className={classes.title}>
-									{this.state.buttonType === 'Edit' ? 'Edit Todo' : 'Create a new Todo'}
+								<Typography variant="h6" className={classes.name}>
+									{this.state.buttonType === 'Edit' ? 'Edit Recipe' : 'Create a new Recipe'}
 								</Typography>
 								<Button
 									autoFocus
@@ -294,13 +297,13 @@ class todo extends Component {
 										variant="outlined"
 										required
 										fullWidth
-										id="todoTitle"
-										label="Todo Title"
-										name="title"
-										autoComplete="todoTitle"
-										helperText={errors.title}
-										value={this.state.title}
-										error={errors.title ? true : false}
+										id="recipeName"
+										label="recipe name"
+										name="name"
+										autoComplete="recipeName"
+										helperText={errors.name}
+										value={this.state.name}
+										error={errors.name ? true : false}
 										onChange={this.handleChange}
 									/>
 								</Grid>
@@ -309,10 +312,10 @@ class todo extends Component {
 										variant="outlined"
 										required
 										fullWidth
-										id="todoDetails"
-										label="Todo Details"
+										id="recipeDetails"
+										label="recipe Details"
 										name="body"
-										autoComplete="todoDetails"
+										autoComplete="recipeDetails"
 										multiline
 										rows={25}
 										rowsMax={25}
@@ -327,29 +330,29 @@ class todo extends Component {
 					</Dialog>
 
 					<Grid container spacing={2}>
-						{this.state.todos.map((todo) => (
+						{this.state.recipes.map((recipe) => (
 							<Grid item xs={12} sm={6}>
+															{console.log('recipe: ', recipe)}
+
 								<Card className={classes.root} variant="outlined">
 									<CardContent>
 										<Typography variant="h5" component="h2">
-											{todo.title}
+											{recipe.name}
+											{console.log('recipe: ', recipe)}
 										</Typography>
 										<Typography className={classes.pos} color="textSecondary">
-											{dayjs(todo.createdAt).fromNow()}
-										</Typography>
-										<Typography variant="body2" component="p">
-											{`${todo.body.substring(0, 65)}`}
+											{dayjs(recipe.createdAt).fromNow()}
 										</Typography>
 									</CardContent>
 									<CardActions>
-										<Button size="small" color="primary" onClick={() => this.handleViewOpen({ todo })}>
+										<Button size="small" color="primary" onClick={() => this.handleViewOpen({ recipe })}>
 											{' '}
 											View{' '}
 										</Button>
-										<Button size="small" color="primary" onClick={() => this.handleEditClickOpen({ todo })}>
+										<Button size="small" color="primary" onClick={() => this.handleEditClickOpen({ recipe })}>
 											Edit
 										</Button>
-										<Button size="small" color="primary" onClick={() => this.deleteTodoHandler({ todo })}>
+										<Button size="small" color="primary" onClick={() => this.deleterecipeHandler({ recipe })}>
 											Delete
 										</Button>
 									</CardActions>
@@ -360,18 +363,18 @@ class todo extends Component {
 
 					<Dialog
 						onClose={handleViewClose}
-						aria-labelledby="customized-dialog-title"
+						aria-labelledby="customized-dialog-name"
 						open={viewOpen}
 						fullWidth
 						classes={{ paperFullWidth: classes.dialogeStyle }}
 					>
-						<DialogTitle id="customized-dialog-title" onClose={handleViewClose}>
-							{this.state.title}
+						<DialogTitle id="customized-dialog-name" onClose={handleViewClose}>
+							{this.state.name}
 						</DialogTitle>
 						<DialogContent dividers>
 							<TextField
 								fullWidth
-								id="todoDetails"
+								id="recipeDetails"
 								name="body"
 								multiline
 								readonly
@@ -390,4 +393,4 @@ class todo extends Component {
 	}
 }
 
-export default withStyles(styles)(todo);
+export default withStyles(styles)(recipe);

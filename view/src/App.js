@@ -1,36 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import login from './pages/login';
-import signup from './pages/signup';
-import home from './pages/home';
-
-const theme = createMuiTheme({
-	palette: {
-		primary: {
-			light: '#33c9dc',
-			main: '#FF5722',
-			dark: '#d50000',
-			contrastText: '#fff'
-		}
-  }
-});
+import Home from './pages/home';
+import Login from './pages/login';
+import Header from './uiComponents/Header'
 
 function App() {
 	return (
-		<MuiThemeProvider theme={theme}>
+		<React.Fragment>
+			<Header title={'Recipe DeathMatch'} />
 			<Router>
 				<div>
 					<Switch>
-						<Route exact path="/" component={home} />
-						<Route exact path="/login" component={login} />
-						<Route exact path="/signup" component={signup} />
+						<Route exact path="/" component={Home} />
+						<Route exact path="/login" component={Login} />
+						{/*<Route exact path="/signup" component={signup} /> */}
 					</Switch>
 				</div>
 			</Router>
-		</MuiThemeProvider>
-	);
+		</React.Fragment>
+	)
+
 }
 
 export default App;

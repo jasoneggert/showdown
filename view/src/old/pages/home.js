@@ -15,9 +15,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import withStyles from '@material-ui/core/styles/withStyles';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
+// import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import NotesIcon from '@material-ui/icons/Notes';
-import Avatar from '@material-ui/core/avatar';
+import Avatar from '@material-ui/core/Avatar';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -134,7 +134,7 @@ class home extends Component {
 					<AppBar position="fixed" className={classes.appBar}>
 						<Toolbar>
 							<Typography variant="h6" noWrap>
-								TodoApp
+								Recipe DeathMatch
 							</Typography>
 						</Toolbar>
 					</AppBar>
@@ -167,7 +167,7 @@ class home extends Component {
 							<ListItem button key="Account" onClick={this.loadAccountPage}>
 								<ListItemIcon>
 									{' '}
-									<AccountBoxIcon />{' '}
+									{/* <AccountBoxIcon />{' '} */}
 								</ListItemIcon>
 								<ListItemText primary="Account" />
 							</ListItem>

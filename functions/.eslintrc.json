@@ -4,10 +4,14 @@
     "ecmaVersion": 2017
   },
   "plugins": [
-    "promise"
+    "promise", "jest", "prettier", "node"
   ],
   "extends": "eslint:recommended",
   "rules": {
+    "curly": "warn",
+    "prettier/prettier": ["error", { "singleQuote": true }],
+    "node/no-unpublished-require": 0,
+    "jsx-a11y/href-no-hash": [0],
     // Removed rule "disallow the use of console" from recommended eslint rules
     "no-console": "off",
 
@@ -18,13 +22,13 @@
     "no-debugger": "off",
 
     // Removed rule "disallow unused variables" from recommended eslint rules
-    "no-unused-vars": "off",
+    "no-unused-vars": "on",
 
     // Removed rule "disallow mixed spaces and tabs for indentation" from recommended eslint rules
-    "no-mixed-spaces-and-tabs": "off",
+    "no-mixed-spaces-and-tabs": "on",
 
     // Removed rule "disallow the use of undeclared variables unless mentioned in /*global */ comments" from recommended eslint rules
-    "no-undef": "off",
+    "no-undef": "on",
 
     // Warn against template literal placeholder syntax in regular strings
     "no-template-curly-in-string": 1,

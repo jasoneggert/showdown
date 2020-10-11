@@ -54,16 +54,16 @@ class login extends Component {
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if("errors" in nextProps.UI){
-			if (nextProps.UI.errors) {
-			this.setState({
-				errors: nextProps.UI.errors
-			});
-		}
-		}
+	// componentWillReceiveProps(nextProps) {
+	// 	if("errors" in nextProps.UI){
+	// 		if (nextProps.UI.errors) {
+	// 		this.setState({
+	// 			errors: nextProps.UI.errors
+	// 		});
+	// 	}
+	// 	}
 		
-	}
+	// }
 
 	handleChange = (event) => {
 		this.setState({

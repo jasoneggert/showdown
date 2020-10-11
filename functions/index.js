@@ -10,22 +10,25 @@ const {
     updateUserDetail
 } = require('./APIs/users')
 
+
 const {
-    getAllTodos,
-    postOneTodo,
-    deleteTodo,
-    editTodo
-} = require('./APIs/todos');
+    getAllRecipes,
+    postOneRecipe,
+    deleteRecipe,
+    editRecipe
+} = require('./APIs/recipes');
 
 // Users
 app.post('/login', loginUser);
 app.post('/signup', signUpUser);
 app.post('/user/image', auth, uploadProfilePhoto);
 app.get('/user', auth, getUserDetail);
-app.get('/todos',auth,  getAllTodos);
-app.post('/todo', auth, postOneTodo);
-app.delete('/todo/:todoId',auth, deleteTodo);
-app.put('/todo/:todoId', auth, editTodo);
+
+//recipe routes
+app.get('/recipes',auth,  getAllRecipes);
+app.post('/recipe', auth, postOneRecipe);
+app.delete('/recipe/:recipeId',auth, deleteRecipe);
+app.put('/recipe/:recipeId', auth, editRecipe);
 
 exports.api = functions.https.onRequest(app);
 
