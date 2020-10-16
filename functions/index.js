@@ -13,10 +13,20 @@ const {
 
 const {
     getAllRecipes,
+    getRecipe,
     postOneRecipe,
     deleteRecipe,
     editRecipe
 } = require('./APIs/recipes');
+
+const {
+    getAllDeathMatches,
+    postOneDeathMatch,
+    deleteDeathMatch,
+    editDeathMatch
+} = require('./APIs/deathMatches');
+
+const { findRecipes } = require('./APIs/scraper');
 
 // Users
 app.post('/login', loginUser);
@@ -26,10 +36,18 @@ app.get('/user', auth, getUserDetail);
 
 //recipe routes
 app.get('/recipes',auth,  getAllRecipes);
-app.post('/recipe', auth, postOneRecipe);
+app.get('recipe', auth , getRecipe)
+app.post('/createRecipe', auth, postOneRecipe);
 app.delete('/recipe/:recipeId',auth, deleteRecipe);
 app.put('/recipe/:recipeId', auth, editRecipe);
 
-exports.api = functions.https.onRequest(app);
+//deathMatch Routes
+app.get('/deathMatches',auth,  getAllRecipes);
 
+app.post('/createDeathMatch', auth, postOneRecipe);
+app.delete('/deathMatch/:deathMatchId',auth, deleteRecipe);
+app.put('/deathMatch/:deathMatchId', auth, editRecipe);
+app.get('/find', auth, findRecipes);
+
+exports.api = functions.https.onRequest(app);
     
