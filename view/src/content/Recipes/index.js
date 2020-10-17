@@ -1,8 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-import { authMiddleWare } from '../../util/auth';
-import { useHistory } from "react-router-dom";
-import useAxios from 'axios-hooks'
 import { useAuthedAxios } from '../../hooks/useAuthedAxios';
 
 const Recipes = () => {

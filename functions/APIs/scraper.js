@@ -2,7 +2,7 @@
 const recipeScraper = require('recipe-scraper');
 const axios = require('axios');
 
-exports.findRecipes = (request, response) => {
+exports.findRecipes = async (request, response) => {
 
     const sites = [
         'https://www.101cookbooks.com/',
@@ -43,17 +43,19 @@ exports.findRecipes = (request, response) => {
 
     // enter a supported recipe url as a parameter - returns a promise
 
-    const recipes = sites.map(async (site) => {
+    const recipes = await Promise.all(sites.map(async (site) => {
         try {
             let recipe = await recipeScraper(site + '/' + request.body.recipeName);
-            recipe.name = `${recipe.name} (from ${site})`
-            console.log('recipe: ', recipe);
-            return recipe
+            if (recipe) {
+                recipe.name = `${recipe.name} (from ${site})`
+                console.log('recipe: ', recipe);
+                return recipe
+            }
         } catch (error) {
             console.log('error', error.message);
             return null;
         }
-    });
+    }));
 
     return response.json(recipes);
 
