@@ -42,10 +42,11 @@ exports.findRecipes = async (request, response) => {
     ];
 
     // enter a supported recipe url as a parameter - returns a promise
+    console.log('request: ', request.params);
 
     const recipes = await Promise.all(sites.map(async (site) => {
         try {
-            let recipe = await recipeScraper(site + '/' + request.body.recipeName);
+            let recipe = await recipeScraper(site + '/' + request.params.recipeString);
             if (recipe) {
                 recipe.name = `${recipe.name} (from ${site})`
                 console.log('recipe: ', recipe);

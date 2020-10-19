@@ -47,7 +47,7 @@ app.get('/deathMatches',auth,  getAllRecipes);
 app.post('/createDeathMatch', auth, postOneRecipe);
 app.delete('/deathMatch/:deathMatchId',auth, deleteRecipe);
 app.put('/deathMatch/:deathMatchId', auth, editRecipe);
-app.get('/find', auth, findRecipes);
+app.get('/find/:recipeString', auth, findRecipes);
 
 exports.api = functions.https.onRequest(app);
     
