@@ -4,13 +4,15 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import PrivateRoute from './util/PrivateRoute';
-
+import Header from './uiComponents/Header';
 function App() {
 	const authToken = localStorage.getItem('AuthToken');
 
 	return (
 		<Router>
 			<div>
+			<Header title={'Recipe DeathMatch'} />
+
 				<Switch>
 					<Route
 						exact
