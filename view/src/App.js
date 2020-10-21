@@ -1,34 +1,52 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import PrivateRoute from './util/PrivateRoute';
 import Header from './uiComponents/Header';
+import { useAuthedAxios } from './hooks/useAuthedAxios';
+import { useHistory } from 'react-router-dom';
+import { useParams } from 'react-router';
+import { authMiddleWare } from './util/auth';
 function App() {
-	const authToken = localStorage.getItem('AuthToken');
+  const authToken = localStorage.getItem('AuthToken');
+  const history = useHistory();
+  authMiddleWare(history);
+  const [
+    { data: userData, loading: userLoading, error: userError },
+    { refetch: userRefetch },
+  ] = useAuthedAxios('/user');
 
-	return (
-		<Router>
-			<div>
-			<Header title={'Recipe DeathMatch'} />
+  console.log('userData: ', userData);
+  if (userLoading) {
+    return <div>Loading..</div>;
+  }
 
-				<Switch>
-					<Route
-						exact
-						path='/'
-						render={() => (
-							<Redirect to={authToken ? '/app' : '/login'} />
-						)}
-					/>
-					<PrivateRoute exact path='/app/:view?' component={Home} />
-					<Route exact path='/login' component={Login} />
-					<Route exact path='/signup' component={Signup} />
-				</Switch>
-			</div>
-		</Router>
-	)
-
+  if (userError) {
+    console.log('error');
+    history.push('/login');
+  }
+  return (
+      <div>
+        <Header title={'Recipe DeathMatch'} user/>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => <Redirect to={authToken ? '/app' : '/login'} />}
+          />
+          <PrivateRoute exact path="/app/:view?" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+        </Switch>
+      </div>
+  );
 }
 
 export default App;

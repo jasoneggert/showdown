@@ -23,7 +23,7 @@ const {
     getAllDeathMatches,
     postOneDeathMatch,
     deleteDeathMatch,
-    editDeathMatch
+
 } = require('./APIs/deathMatches');
 
 const { findRecipes } = require('./APIs/scraper');
@@ -44,12 +44,11 @@ app.put('/recipe/:recipeId', auth, editRecipe);
 //deathMatch Routes
 app.get('/deathMatches',auth,  getAllRecipes);
 
-app.post('/createDeathMatch', auth, postOneRecipe);
-app.delete('/deathMatch/:deathMatchId',auth, deleteRecipe);
-app.put('/deathMatch/:deathMatchId', auth, editRecipe);
+// app.post('/createDeathMatch', auth, postOneDeathMatch);
+// app.delete('/deathMatch/:deathMatchId',auth, deleteDeathMatch);
+// app.put('/deathMatch/:deathMatchId', auth, editRecipe);
 
 //scraper
 app.get('/find/:recipeString', auth, findRecipes);
 
 exports.api = functions.https.onRequest(app);
-    
