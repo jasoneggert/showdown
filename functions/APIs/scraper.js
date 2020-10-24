@@ -41,7 +41,6 @@ const findRecipes = async (request, response) => {
 
   const recipes = await Promise.all(
     sites.map(async (site) => {
-      console.log(' request.params.recipeString: ',  request.params.recipeString);
       try {
         let recipe = await recipeScraper(
           site + '/' + request.params.recipeString
@@ -49,9 +48,11 @@ const findRecipes = async (request, response) => {
         if (recipe) {
           recipe.name = `${recipe.name} (from ${site})`;
           return recipe;
+        } else {
+          return;
         }
       } catch (error) {
-        console.log('error', error.message);
+        console.error('error', error.message);
       }
     })
   );

@@ -10,9 +10,9 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import PrivateRoute from './util/PrivateRoute';
 import Header from './uiComponents/Header';
+import { BrowserRouter } from "react-router-dom";
 import { useAuthedAxios } from './hooks/useAuthedAxios';
 import { useHistory } from 'react-router-dom';
-import { useParams } from 'react-router';
 import { authMiddleWare } from './util/auth';
 function App() {
   const authToken = localStorage.getItem('AuthToken');
@@ -33,19 +33,16 @@ function App() {
     history.push('/login');
   }
   return (
-      <div>
-        <Header title={'Recipe DeathMatch'} user/>
+    <div>
+      <Header title={'The Recipe DeathMatch'} />
+      <BrowserRouter>
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => <Redirect to={authToken ? '/app' : '/login'} />}
-          />
           <PrivateRoute exact path="/app/:view?" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
         </Switch>
-      </div>
+      </BrowserRouter>
+    </div>
   );
 }
 

@@ -15,19 +15,18 @@ const RecipeCard = ({ key, recipe }) => {
 
   return (
     <Grid item xs={12} sm={6} key={key}>
-      <Card variant="outlined">
+      <Card variant="outlined" elevation={2}>
         <CardContent>
-          <Row>
 
-            <ImageContainer>
-              <Suspense>
-                <img src={recipe.image} />
-              </Suspense>
-            </ImageContainer>
-            <RecipeTitle>
-              {recipe.name}
-            </RecipeTitle>
-          </Row>
+
+          <ImageContainer>
+            <Suspense>
+              <img src={recipe.image} />
+            </Suspense>
+          </ImageContainer>
+          <RecipeTitle>
+            {recipe.name}
+          </RecipeTitle>
 
           {/* {dayjs(recipe.createdAt).fromNow()} */}
         </CardContent>
@@ -60,8 +59,10 @@ const RecipeCard = ({ key, recipe }) => {
 };
 
 const CardContent = styled.div`
-  min-height: 150px;
+  min-height: 216px;
   padding: 24px;
+  position: relative;
+
 `;
 
 const Row = styled.div`
@@ -70,24 +71,29 @@ const Row = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 177px;
   overflow: hidden;
   object-fit: fill;
-  border-radius: 50%;
-  margin-right: 24px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
   img {
-    height: 40px;
+    width: 100%;
   }
 `;
 
 const RecipeTitle = styled.div`
-    display: -webkit-box;
+  margin-top: 164px;
+  display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  max-width: 150px;
-  font-size: 16px;
+  font-size: 17px;
+  word-break: break-all;
+  width: 100%;
+  font-family: 'Commissioner', sans-serif;
+  font-weight: 500;
 `;
 
 export default RecipeCard;

@@ -1,10 +1,10 @@
 const { db } = require('../util/admin');
 
 const getAllRecipes = (request, response) => {
-  const defaulImageFallBack = 'https://firebasestorage.googleapis.com/v0/b/showdown-771b8.appspot.com/o/bowls.png?alt=media&token=7426d130-0624-43a6-8686-71b5198b9c1f';
+  const defaulImageFallBack = 'https://firebasestorage.googleapis.com/v0/b/showdown-771b8.appspot.com/o/veg.png?alt=media&token=7723f15b-6cb8-4cc4-aa10-1517f6586d77';
   db.collection('recipes')
-    .orderBy('createdAt', 'desc')
     .where('username', '==', request.user.username)
+    .orderBy('createdAt', 'desc')
     .get()
     .then((data) => {
       console.log('data: ', data);
@@ -12,6 +12,7 @@ const getAllRecipes = (request, response) => {
       data.forEach((doc) => {
         recipes.push({
           recipeId: doc.id,
+          website: doc.data().website ? doc.data().website :'USER_CREATED',
           name: doc.data().name,
           body: doc.data().body,
           ingredients: doc.data().ingredients,

@@ -1,9 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
-
 
 html,
 body {
-    font-family: 'Creepster', cursive;
+    font-family: 'Commissioner', sans-serif;
     background-color: rgb(245, 245,245);
 }

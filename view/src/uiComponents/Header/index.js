@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import deathSkull from '../../svgs/deathSkull';
-import Link from '@material-ui/core/Link';
 import { Blob } from 'react-blob';
 
 const Header = ({ title }) => {
@@ -16,20 +15,18 @@ const Header = ({ title }) => {
               top: '-10px',
               right: '-22px',
               zIndex: -1,
-              backgroundColor: '#21D4FD',
+              backgroundColor: '#cc1100',
               color: 'white',
               fontSize: '50vh',
             }}
           />
           {deathSkull()}
         </Logo>
-        <Title>{title}</Title>
+        <Title>The Recipe DeathMatch</Title>
       </LogoContainer>
-      <NavContainer>
-        <Link href="recipes">Recipes</Link>
-        <Link href="deathmatches">DeathMatches</Link>
-        <Link href="find">Find</Link>
-      </NavContainer>
+
+
+
     </HeaderContainer>
   );
 };
@@ -43,6 +40,7 @@ const HeaderContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-bottom: 24px;
 `;
 
 const LogoContainer = styled.div`
@@ -63,14 +61,10 @@ const Logo = styled.div`
 const Title = styled.div`
   font-family: 'Creepster', cursive;
   font-size: 36px;
+  color: #cc1100;
+
 `;
 
-const NavContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-`;
+
 
 export default Header;

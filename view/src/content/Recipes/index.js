@@ -17,7 +17,7 @@ const Recipes = () => {
     return <div>There Was Error Loading Your Reecipes</div>;
   }
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={5}>
       {recipesData.map((recipe) => (
         <RecipeCard key={recipe.id} recipe={recipe} />
       ))}
