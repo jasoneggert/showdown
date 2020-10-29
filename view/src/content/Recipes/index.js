@@ -1,28 +1,88 @@
-import React from 'react';
-import { useAuthedAxios } from '../../hooks/useAuthedAxios';
+import React, { useState, useEffect } from 'react';
+import { useTrail, animated } from 'react-spring';
+import { useAuthedAxiosManual } from '../../hooks/useAuthedAxiosManual';
 import RecipeCard from '../../uiComponents/RecipeCard';
-import Grid from '@material-ui/core/Grid';
-
+import RecipeDetail from '../../uiComponents/RecipeDetail'
+import { useHistory } from 'react-router-dom';
+import get from 'lodash/get';
+import styled from 'styled-components'
 const Recipes = () => {
-  const [
-    { data: recipesData, loading: recipesLoading, error: recipesError },
-    { refetch: recipeRefetch },
-  ] = useAuthedAxios('/recipes');
-  console.log('recipesData: ', recipesData);
+
+  const history = useHistory();
+  const [viewedRecipe, setViewedRecipe] = useState(false);
+  const [fistCalled, setFirstCalled] = useState([]);
+
+
+  const [{ data: recipesData, loading: recipesLoading, error: recipesError }, execute ] = useAuthedAxiosManual({});
+
+  useEffect(() => {
+    if (fistCalled) {
+      setFirstCalled(true)
+      execute({url: '/recipes', method: 'post', data: {first: true}});
+    }
+  }, [execute]);
+
+  const trail = useTrail(recipesData && recipesData.recipes ? recipesData.recipes.length : [], {
+    from: { marginLeft: -20, opacity: 0, transform: 'scale(0)' },
+    to: { marginLeft: 0, opacity: 1, transform: 'scale(1)' }
+  });
+
 
   if (recipesLoading) {
     return <div>Loading...</div>;
   }
   if (recipesError) {
-    return <div>There Was Error Loading Your Reecipes</div>;
+    history.push('../login');
   }
+
+  const openView = recipe => {
+    setViewedRecipe(recipe);
+  }
+
+  const closeView = () => {
+    setViewedRecipe(false);
+  }
+
+
+  const nextPage = () => {
+    execute({url: '/recipes', method: 'post', data: {first: false, pageNext: true, pagePrev: false, firstItem: recipesData.firstItem, lastItem: recipesData.lastItem }})
+  }
+
+  const prevPage = () => {
+    execute({url: '/recipes', method: 'post', data: {first: false, pageNext: false, pagePrev: true, firstItem: recipesData.firstItem, lastItem: recipesData.lastItem }})
+
+  }
+
   return (
-    <Grid container spacing={5}>
-      {recipesData.map((recipe) => (
-        <RecipeCard key={recipe.id} recipe={recipe} />
-      ))}
-    </Grid>
+    <React.Fragment>
+      <RecipeDetail recipe={viewedRecipe} handleClose={closeView} />
+      <Grid>
+        {recipesData && trail.map((props, index) => (
+          <AnimatedRecipeCard
+            key={recipesData.recipes[index].id}
+            style={props}
+            class="what"
+          >
+            <RecipeCard key={recipesData.recipes[index].id} recipe={recipesData.recipes[index]} openView={openView} />
+          </AnimatedRecipeCard>
+        ))}
+      </Grid>
+      <button onClick={nextPage}>Next</button>
+    </React.Fragment>
+
   );
 };
 
+
+const AnimatedRecipeCard = styled(animated.div)`
+  max-width: 430px;
+  min-width: 430px;
+  margin: 12px;
+`;
+
+const Grid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
 export default Recipes;

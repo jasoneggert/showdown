@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import Recipes from '../../content/Recipes';
 import Find from '../../content/Find';
 import DeathMatches from '../../content/DeathMatches';
-import { useParams } from 'react-router';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
-
+import Button from '@material-ui/core/Button';
+;
 const Home = ({ userDetails }) => {
-  let { view } = useParams();
   const history = useHistory();
+  let { view } = useParams();
   const [currentView, setCurrentView] = useState(view ? view : 'recipes');
-  const setView = e => {
-    const view = e.target.value
+  const setView = view => {
     history.push(`/app/${view}`);
     setCurrentView(view);
   }
+
   return (
     <React.Fragment>
-      <NavContainer>
-        <button onClick={setView} value='recipes'>Recipes</button>
-        <button onClick={setView} value='deathmatches'>DeathMatches</button>
-        <button onClick={setView} value='find'>Find</button>
-      </NavContainer>
       <ContentContainer>
+        <ContentColumn>
+          <NavContainer>
+            <VaporButton onClick={e => setView('recipes')}>Recipes</VaporButton>
+            <VaporButton onClick={e => setView('deathmatches')}>DeathMatches</VaporButton>
+            <VaporButton onClick={e => setView('find')}>Find</VaporButton>
+          </NavContainer>
+        </ContentColumn>
         <ContentColumn>
           {currentView === 'recipes' && <Recipes />}
           {currentView === 'deathmatches' && <DeathMatches />}
@@ -47,16 +50,31 @@ const ContentColumn = styled.div`
 `;
 
 const NavContainer = styled.div`
-  width: 300px;
+  width:100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  margin-left: 80px;
+  justify-content: center;
+  margin-bottom: 24px;
   font-weight: 500;
   font-family: 'Commissioner', sans-serif;
-  top: -16px;
-  position: relative;
+`;
+
+const VaporButton = styled.button`
+  background: linear-gradient(45deg, #3f51b5 50%, #ff71ce 95%);
+  border: 0;
+  border-radius:12px;
+  box-shadow: 0 3px 5px 2px #01cdfe;
+  color: #fff;
+  font-weight: bold;
+  height: 24px;
+  padding: 0 16px;
+  cursor: pointer;
+  margin: 0 16px;
+
+  &:hover {
+    box-shadow: 0 7px 5px 2px #ff71ce;
+  }
 `;
 
 export default Home;

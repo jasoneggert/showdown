@@ -11,14 +11,22 @@ import {
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 
-const RecipeCard = ({ key, recipe }) => {
+const RecipeCard = ({ key, recipe, openView, openEdit, deleteRecipe }) => {
+  const handleViewOpen = () => {
+    openView(recipe)
+  }
 
+  const handleEditClickOpen = () => {
+    openEdit(recipe)
+  }
+
+  const deleterecipeHandler = () => {
+    deleteRecipe(recipe)
+  }
   return (
-    <Grid item xs={12} sm={6} key={key}>
-      <Card variant="outlined" elevation={2}>
+    <VaporBorder>
+      <Card>
         <CardContent>
-
-
           <ImageContainer>
             <Suspense>
               <img src={recipe.image} />
@@ -34,29 +42,42 @@ const RecipeCard = ({ key, recipe }) => {
           <Button
             size="small"
             color="primary"
-            onClick={() => this.handleViewOpen({ recipe })}
+            onClick={handleViewOpen}
           >
             View
           </Button>
           <Button
             size="small"
             color="primary"
-            onClick={() => this.handleEditClickOpen({ recipe })}
+            onClick={handleEditClickOpen}
           >
             Edit
           </Button>
           <Button
             size="small"
             color="primary"
-            onClick={() => this.deleterecipeHandler({ recipe })}
+            onClick={deleterecipeHandler}
           >
             Delete
           </Button>
         </CardActions>
       </Card>
-    </Grid>
+    </VaporBorder>
   );
 };
+
+
+const VaporBorder = styled.div`
+  border: 3px solid #3f51b5;
+  border-radius: 6px;
+  box-shadow: 0 2.8px 2.2px  rgba(1, 203, 254, 0.38),
+  0 6.7px 5.3px  rgba(1, 203, 254, 0.38),
+  0 12.5px 3px  rgba(1, 203, 254, 0.38),
+  0 12.3px 7.9px  rgba(1, 203, 254, 0.38),
+  0 21.8px 23.4px  rgba(1, 203, 254, 0.38),
+  0 50px 30px  rgba(1, 203, 254, 0.38)
+
+`;
 
 const CardContent = styled.div`
   min-height: 216px;

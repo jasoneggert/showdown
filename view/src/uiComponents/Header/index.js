@@ -15,9 +15,12 @@ const Header = ({ title }) => {
               top: '-10px',
               right: '-22px',
               zIndex: -1,
-              backgroundColor: '#cc1100',
+              // backgroundColor: '#cc1100',
+              background: 'linear-gradient(45deg, #3f51b5 30%, 	#ff71ce 90%)',
               color: 'white',
               fontSize: '50vh',
+              boxShadow: '0 3px 5px 2px #01cdfe'
+
             }}
           />
           {deathSkull()}
@@ -61,7 +64,8 @@ const Logo = styled.div`
 const Title = styled.div`
   font-family: 'Creepster', cursive;
   font-size: 36px;
-  color: #cc1100;
+  color: #3f51b5;
+  text-shadow: 2px 0px #01cdfe;
 
 `;
 

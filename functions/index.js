@@ -12,7 +12,7 @@ const {
 
 
 const {
-    getAllRecipes,
+    getAllRecipesByUser,
     getRecipe,
     postOneRecipe,
     deleteRecipe,
@@ -35,14 +35,14 @@ app.post('/user/image', auth, uploadProfilePhoto);
 app.get('/user', auth, getUserDetail);
 
 //recipe routes
-app.get('/recipes',auth,  getAllRecipes);
+app.post('/recipes',auth,  getAllRecipesByUser);
 app.get('recipe', auth , getRecipe)
 app.post('/createRecipe', auth, postOneRecipe);
 app.delete('/recipe/:recipeId',auth, deleteRecipe);
 app.put('/recipe/:recipeId', auth, editRecipe);
 
 //deathMatch Routes
-app.get('/deathMatches',auth,  getAllRecipes);
+app.get('/deathMatches',auth,  getAllRecipesByUser);
 
 // app.post('/createDeathMatch', auth, postOneDeathMatch);
 // app.delete('/deathMatch/:deathMatchId',auth, deleteDeathMatch);

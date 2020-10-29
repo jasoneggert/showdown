@@ -11,13 +11,10 @@ import Signup from './pages/Signup';
 import PrivateRoute from './util/PrivateRoute';
 import Header from './uiComponents/Header';
 import { BrowserRouter } from "react-router-dom";
-import { useAuthedAxios } from './hooks/useAuthedAxios';
 import { useHistory } from 'react-router-dom';
-import { authMiddleWare } from './util/auth';
+import { useAuthedAxios } from './hooks/useAuthedAxios';
 function App() {
-  const authToken = localStorage.getItem('AuthToken');
-  const history = useHistory();
-  authMiddleWare(history);
+
   const [
     { data: userData, loading: userLoading, error: userError },
     { refetch: userRefetch },
@@ -30,13 +27,18 @@ function App() {
 
   if (userError) {
     console.log('error');
-    history.push('/login');
   }
+
   return (
     <div>
       <Header title={'The Recipe DeathMatch'} />
       <BrowserRouter>
         <Switch>
+        <Route
+            exact
+            path="/"
+            component={Home}
+          />
           <PrivateRoute exact path="/app/:view?" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
