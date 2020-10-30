@@ -19,13 +19,11 @@ const Home = ({ userDetails }) => {
   return (
     <React.Fragment>
       <ContentContainer>
-        <ContentColumn>
-          <NavContainer>
-            <VaporButton onClick={e => setView('recipes')}>Recipes</VaporButton>
-            <VaporButton onClick={e => setView('deathmatches')}>DeathMatches</VaporButton>
-            <VaporButton onClick={e => setView('find')}>Find</VaporButton>
-          </NavContainer>
-        </ContentColumn>
+        <NavContainer>
+          <VaporButton onClick={e => setView('recipes')}>Recipes</VaporButton>
+          <VaporButton onClick={e => setView('deathmatches')}>DeathMatches</VaporButton>
+          <VaporButton onClick={e => setView('find')}>Find</VaporButton>
+        </NavContainer>
         <ContentColumn>
           {currentView === 'recipes' && <Recipes />}
           {currentView === 'deathmatches' && <DeathMatches />}
@@ -44,6 +42,7 @@ const ContentContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const ContentColumn = styled.div`
   max-width: 80vw;
   width: 80vw;
@@ -57,24 +56,24 @@ const NavContainer = styled.div`
   justify-content: center;
   margin-bottom: 24px;
   font-weight: 500;
-  font-family: 'Commissioner', sans-serif;
+  top: -55px;
+  left: 40px;
+  position: relative;
 `;
 
 const VaporButton = styled.button`
-  background: linear-gradient(45deg, #3f51b5 50%, #ff71ce 95%);
+  background: #000;
   border: 0;
   border-radius:12px;
-  box-shadow: 0 3px 5px 2px #01cdfe;
   color: #fff;
   font-weight: bold;
   height: 24px;
   padding: 0 16px;
   cursor: pointer;
   margin: 0 16px;
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 1px;
 
-  &:hover {
-    box-shadow: 0 7px 5px 2px #ff71ce;
-  }
 `;
 
 export default Home;

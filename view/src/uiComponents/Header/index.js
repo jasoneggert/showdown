@@ -15,21 +15,15 @@ const Header = ({ title }) => {
               top: '-10px',
               right: '-22px',
               zIndex: -1,
-              // backgroundColor: '#cc1100',
-              background: 'linear-gradient(45deg, #3f51b5 30%, 	#ff71ce 90%)',
+              background: '#000',
               color: 'white',
               fontSize: '50vh',
-              boxShadow: '0 3px 5px 2px #01cdfe'
-
             }}
           />
           {deathSkull()}
         </Logo>
         <Title>The Recipe DeathMatch</Title>
       </LogoContainer>
-
-
-
     </HeaderContainer>
   );
 };
@@ -62,10 +56,10 @@ const Logo = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: 'Creepster', cursive;
+  font-family: 'Rakkas', cursive;
   font-size: 36px;
-  color: #3f51b5;
-  text-shadow: 2px 0px #01cdfe;
+  color: #000;
+  /* text-shadow: 2px 0px #01cdfe; */
 
 `;
 

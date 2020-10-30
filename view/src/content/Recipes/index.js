@@ -67,7 +67,9 @@ const Recipes = () => {
           </AnimatedRecipeCard>
         ))}
       </Grid>
+      <button onClick={prevPage}>Previous</button>
       <button onClick={nextPage}>Next</button>
+
     </React.Fragment>
 
   );
@@ -77,7 +79,7 @@ const Recipes = () => {
 const AnimatedRecipeCard = styled(animated.div)`
   max-width: 430px;
   min-width: 430px;
-  margin: 12px;
+  margin: 12px 12px 0 12px;
 `;
 
 const Grid = styled.div`

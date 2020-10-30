@@ -40,5 +40,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/showdown-771b8/us-central1/api"
+  "proxy": "https://us-central1-showdown-771b8.cloudfunctions.net/api"
 }

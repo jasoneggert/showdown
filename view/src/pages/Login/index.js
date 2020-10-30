@@ -1,5 +1,4 @@
 // Material UI components
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
@@ -9,7 +8,6 @@ import Link from '@material-ui/core/Link';
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import axios from 'axios';
 import React, { Component } from 'react';
 

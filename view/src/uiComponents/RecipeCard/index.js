@@ -2,11 +2,7 @@ import React, { Suspense } from 'react';
 import {
   Card,
   CardActions,
-  Divider,
-  Button,
-  Grid,
-  TextField,
-  Typography,
+  Button
 } from '@material-ui/core';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
@@ -24,18 +20,18 @@ const RecipeCard = ({ key, recipe, openView, openEdit, deleteRecipe }) => {
     deleteRecipe(recipe)
   }
   return (
-    <VaporBorder>
-      <Card>
+      <GridCard>
         <CardContent>
-          <ImageContainer>
-            <Suspense>
-              <img src={recipe.image} />
-            </Suspense>
-          </ImageContainer>
-          <RecipeTitle>
-            {recipe.name}
-          </RecipeTitle>
-
+          <Row>
+            <RecipeTitle>
+              {recipe.name}
+            </RecipeTitle>
+            <ImageContainer>
+              <Suspense>
+                <img src={recipe.image} />
+              </Suspense>
+            </ImageContainer>
+          </Row>
           {/* {dayjs(recipe.createdAt).fromNow()} */}
         </CardContent>
         <CardActions>
@@ -61,29 +57,17 @@ const RecipeCard = ({ key, recipe, openView, openEdit, deleteRecipe }) => {
             Delete
           </Button>
         </CardActions>
-      </Card>
-    </VaporBorder>
+      </GridCard>
   );
 };
 
-
-const VaporBorder = styled.div`
-  border: 3px solid #3f51b5;
-  border-radius: 6px;
-  box-shadow: 0 2.8px 2.2px  rgba(1, 203, 254, 0.38),
-  0 6.7px 5.3px  rgba(1, 203, 254, 0.38),
-  0 12.5px 3px  rgba(1, 203, 254, 0.38),
-  0 12.3px 7.9px  rgba(1, 203, 254, 0.38),
-  0 21.8px 23.4px  rgba(1, 203, 254, 0.38),
-  0 50px 30px  rgba(1, 203, 254, 0.38)
-
+const GridCard = styled(Card)`
+    padding: 24px 24px 0 24px;
 `;
 
 const CardContent = styled.div`
   min-height: 216px;
-  padding: 24px;
   position: relative;
-
 `;
 
 const Row = styled.div`
@@ -92,29 +76,26 @@ const Row = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  width: 100%;
-  height: 177px;
+  width: 40%;
+  height: 226px;
   overflow: hidden;
   object-fit: fill;
-  position: absolute;
-  left: 0px;
-  top: 0px;
+  padding: 0 15px;
   img {
-    width: 100%;
+    height: 100%;
   }
 `;
 
 const RecipeTitle = styled.div`
-  margin-top: 164px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  font-size: 17px;
+  font-size: 24px;
   word-break: break-all;
-  width: 100%;
-  font-family: 'Commissioner', sans-serif;
+  font-family: 'EB Garamond', serif;
   font-weight: 500;
+  width: 65%;
 `;
 
 export default RecipeCard;
