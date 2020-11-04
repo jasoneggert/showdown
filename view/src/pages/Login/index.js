@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import React, { Component } from 'react';
+import { baseApiUrl } from '../../util/baseApiUrl';
 
 const styles = (theme) => ({
   paper: {
@@ -76,7 +77,7 @@ class Login extends Component {
       password: this.state.password,
     };
     axios
-      .post('/api/login', userData)
+      .post(`${baseApiUrl()}/login`, userData)
       .then((response) => {
         localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
         this.setState({
@@ -85,10 +86,8 @@ class Login extends Component {
         this.props.history.push('/app/recipes');
       })
       .catch((error) => {
-        this.setState({
-          errors: error.response.data,
-          loading: false,
-        });
+        console.log('error: ', error);
+
       });
   };
 

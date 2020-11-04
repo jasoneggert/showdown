@@ -4,7 +4,6 @@ import {
   CardActions,
   Button
 } from '@material-ui/core';
-import dayjs from 'dayjs';
 import styled from 'styled-components';
 
 const RecipeCard = ({ key, recipe, openView, openEdit, deleteRecipe }) => {
@@ -28,11 +27,10 @@ const RecipeCard = ({ key, recipe, openView, openEdit, deleteRecipe }) => {
             </RecipeTitle>
             <ImageContainer>
               <Suspense>
-                <img src={recipe.image} />
+                <img src={recipe.image}  alt='recipe' />
               </Suspense>
             </ImageContainer>
           </Row>
-          {/* {dayjs(recipe.createdAt).fromNow()} */}
         </CardContent>
         <CardActions>
           <Button

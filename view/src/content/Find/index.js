@@ -11,11 +11,9 @@ import Button from '@material-ui/core/Button';
 const Find = () => {
   const [recipeString, setRecipeString] = useState('');
   const [foundRecipes, setFoundRecipes] = useState([]);
-  const [showLoadingMessage, setShowLoadingMessage] = useState(false)
-  const [{ data, loading, error }, execute] = useAuthedAxiosManual({});
+  const [{ data, loading }, execute] = useAuthedAxiosManual({});
 
   const findRecipes = () => {
-    setShowLoadingMessage(true)
     const authToken = localStorage.getItem('AuthToken');
     axios.defaults.headers.common = { Authorization: `${authToken}` };
     execute({
@@ -23,11 +21,9 @@ const Find = () => {
       method: 'get',
     }).then(res => {
       console.log('res: ', res);
-      setFoundRecipes(res.data.filter(recipe => recipe));
-      setShowLoadingMessage(false)
+      setFoundRecipes(data.filter(recipe => recipe));
     }).catch(error => {
       console.error(error);
-      setShowLoadingMessage(false)
     })
   };
 

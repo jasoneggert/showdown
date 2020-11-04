@@ -5,12 +5,24 @@ import Recipes from '../../content/Recipes';
 import Find from '../../content/Find';
 import DeathMatches from '../../content/DeathMatches';
 import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-;
+import { useAuthedAxios } from '../../hooks/useAuthedAxios';
 const Home = ({ userDetails }) => {
   const history = useHistory();
   let { view } = useParams();
   const [currentView, setCurrentView] = useState(view ? view : 'recipes');
+
+  const [
+    { data: userData, loading: userLoading, error: userError }
+  ] = useAuthedAxios(`/user`);
+
+  if (userLoading) {
+    return <div>Loading..</div>;
+  }
+
+  if (userError) {
+    console.log('error');
+  }
+
   const setView = view => {
     history.push(`/app/${view}`);
     setCurrentView(view);

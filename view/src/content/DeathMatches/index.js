@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { useAuthedAxios } from '../../hooks/useAuthedAxios';
-import axios from 'axios';
+import React from 'react';
 const DeathMatches = () => {
     return <div>DeathMatches</div>
 }

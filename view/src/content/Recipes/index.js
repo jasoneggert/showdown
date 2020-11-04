@@ -4,8 +4,8 @@ import { useAuthedAxiosManual } from '../../hooks/useAuthedAxiosManual';
 import RecipeCard from '../../uiComponents/RecipeCard';
 import RecipeDetail from '../../uiComponents/RecipeDetail'
 import { useHistory } from 'react-router-dom';
-import get from 'lodash/get';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { baseApiUrl } from '../../util/baseApiUrl';
 const Recipes = () => {
 
   const history = useHistory();
@@ -18,7 +18,7 @@ const Recipes = () => {
   useEffect(() => {
     if (fistCalled) {
       setFirstCalled(true)
-      execute({url: '/recipes', method: 'post', data: {first: true}});
+      execute({url: baseApiUrl() + '/recipes', method: 'post', data: {first: true}});
     }
   }, [execute]);
 
@@ -45,11 +45,11 @@ const Recipes = () => {
 
 
   const nextPage = () => {
-    execute({url: '/recipes', method: 'post', data: {first: false, pageNext: true, pagePrev: false, firstItem: recipesData.firstItem, lastItem: recipesData.lastItem }})
+    execute({url: baseApiUrl() + '/recipes', method: 'post', data: {first: false, pageNext: true, pagePrev: false, firstItem: recipesData.firstItem, lastItem: recipesData.lastItem }})
   }
 
   const prevPage = () => {
-    execute({url: '/recipes', method: 'post', data: {first: false, pageNext: false, pagePrev: true, firstItem: recipesData.firstItem, lastItem: recipesData.lastItem }})
+    execute({url: baseApiUrl() + '/recipes', method: 'post', data: {first: false, pageNext: false, pagePrev: true, firstItem: recipesData.firstItem, lastItem: recipesData.lastItem }})
 
   }
 
@@ -59,9 +59,8 @@ const Recipes = () => {
       <Grid>
         {recipesData && trail.map((props, index) => (
           <AnimatedRecipeCard
-            key={recipesData.recipes[index].id}
+            key={recipesData.recipes[index].recipeId}
             style={props}
-            class="what"
           >
             <RecipeCard key={recipesData.recipes[index].id} recipe={recipesData.recipes[index]} openView={openView} />
           </AnimatedRecipeCard>
