@@ -7,7 +7,7 @@ import { useAuthedAxiosManual } from '../../hooks/useAuthedAxiosManual';
 import TextField from '@material-ui/core/TextField';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-
+import { baseApiUrl } from '../../util/baseApiUrl';
 const Find = () => {
   const [recipeString, setRecipeString] = useState('');
   const [foundRecipes, setFoundRecipes] = useState([]);
@@ -17,7 +17,7 @@ const Find = () => {
     const authToken = localStorage.getItem('AuthToken');
     axios.defaults.headers.common = { Authorization: `${authToken}` };
     execute({
-      url: `/find/${recipeString.replace(/\s/g, "-")}`,
+      url: `${baseApiUrl()}/find/${recipeString.replace(/\s/g, "-")}`,
       method: 'get',
     }).then(res => {
       console.log('res: ', res);

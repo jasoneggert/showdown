@@ -48,7 +48,7 @@ const Home = ({ userDetails }) => {
 
 const ContentContainer = styled.div`
   padding: 24px;
-  width: 100;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,8 +56,7 @@ const ContentContainer = styled.div`
 `;
 
 const ContentColumn = styled.div`
-  max-width: 80vw;
-  width: 80vw;
+  width: 57vw;
 `;
 
 const NavContainer = styled.div`

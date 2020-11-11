@@ -13,12 +13,12 @@ const Recipes = () => {
   const [fistCalled, setFirstCalled] = useState([]);
 
 
-  const [{ data: recipesData, loading: recipesLoading, error: recipesError }, execute ] = useAuthedAxiosManual({});
+  const [{ data: recipesData, loading: recipesLoading, error: recipesError }, execute] = useAuthedAxiosManual({});
 
   useEffect(() => {
     if (fistCalled) {
       setFirstCalled(true)
-      execute({url: baseApiUrl() + '/recipes', method: 'post', data: {first: true}});
+      execute({ url: baseApiUrl() + '/recipes', method: 'post', data: { first: true } });
     }
   }, [execute]);
 
@@ -45,11 +45,11 @@ const Recipes = () => {
 
 
   const nextPage = () => {
-    execute({url: baseApiUrl() + '/recipes', method: 'post', data: {first: false, pageNext: true, pagePrev: false, firstItem: recipesData.firstItem, lastItem: recipesData.lastItem }})
+    execute({ url: baseApiUrl() + '/recipes', method: 'post', data: { first: false, pageNext: true, pagePrev: false, firstItem: recipesData.firstItem, lastItem: recipesData.lastItem } })
   }
 
   const prevPage = () => {
-    execute({url: baseApiUrl() + '/recipes', method: 'post', data: {first: false, pageNext: false, pagePrev: true, firstItem: recipesData.firstItem, lastItem: recipesData.lastItem }})
+    execute({ url: baseApiUrl() + '/recipes', method: 'post', data: { first: false, pageNext: false, pagePrev: true, firstItem: recipesData.firstItem, lastItem: recipesData.lastItem } })
 
   }
 
@@ -76,9 +76,10 @@ const Recipes = () => {
 
 
 const AnimatedRecipeCard = styled(animated.div)`
-  max-width: 430px;
-  min-width: 430px;
-  margin: 12px 12px 0 12px;
+  width: 100%;
+  min-height: 330px;
+  margin: 12px 0;
+  box-shadow: -3px 5px 15px 0px #888888;
 `;
 
 const Grid = styled.div`

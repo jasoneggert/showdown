@@ -1,6 +1,14 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: border-box;
+}
 
 html,
 body {
     font-family: 'Commissioner', sans-serif;
     background-color: rgb(245, 245,245);
+    box-sizing: border-box;
 }
