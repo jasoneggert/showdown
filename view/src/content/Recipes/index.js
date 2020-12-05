@@ -10,9 +10,12 @@ import { baseApiUrl } from '../../util/baseApiUrl';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 const Recipes = ({ setView }) => {
+  const pageItemCount = 8;
+
   const history = useHistory();
   const [viewedRecipe, setViewedRecipe] = useState(false);
-  const [fistCalled, setFirstCalled] = useState([]);
+  const [firstCalled, setFirstCalled] = useState([]);
+  const [pageNumber, setPageNumber] = useState(0);
 
   const [
     { data: recipesData, loading: recipesLoading, error: recipesError },
@@ -20,16 +23,15 @@ const Recipes = ({ setView }) => {
   ] = useAuthedAxiosManual({});
 
   useEffect(() => {
-    if (fistCalled) {
+    if (firstCalled) {
       setFirstCalled(true);
       execute({
         url: baseApiUrl() + '/recipes',
         method: 'post',
-        data: { first: true },
+        data: { first: true, pageItemCount },
       });
     }
   }, [execute]);
-
   const trail = useTrail(
     recipesData && recipesData.recipes ? recipesData.recipes.length : [],
     {
@@ -54,6 +56,7 @@ const Recipes = ({ setView }) => {
   };
 
   const nextPage = () => {
+    setPageNumber(pageNumber + 1);
     execute({
       url: baseApiUrl() + '/recipes',
       method: 'post',
@@ -63,11 +66,13 @@ const Recipes = ({ setView }) => {
         pagePrev: false,
         firstItem: recipesData.firstItem,
         lastItem: recipesData.lastItem,
+        pageItemCount,
       },
     });
   };
 
   const prevPage = () => {
+    setPageNumber(pageNumber - 1);
     execute({
       url: baseApiUrl() + '/recipes',
       method: 'post',
@@ -77,6 +82,7 @@ const Recipes = ({ setView }) => {
         pagePrev: true,
         firstItem: recipesData.firstItem,
         lastItem: recipesData.lastItem,
+        pageItemCount,
       },
     });
   };
@@ -108,10 +114,14 @@ const Recipes = ({ setView }) => {
       </Grid>
       <PaginationContainer>
         <LeftButton>
-          <Button onClick={prevPage}>Previous</Button>
+          <Button disabled={pageNumber === 0} onClick={prevPage}>
+            Previous
+          </Button>
         </LeftButton>
         <RightButton>
-          <Button onClick={nextPage}>Next</Button>
+          <Button disabled={trail.length < pageItemCount} onClick={nextPage}>
+            Next
+          </Button>
         </RightButton>
       </PaginationContainer>
     </React.Fragment>

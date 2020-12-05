@@ -6,6 +6,8 @@ const getAllRecipesByUser = async (request, response) => {
   const firstItem = request.body.firstItem;
   const pageNext = request.body.pageNext;
   const pagePrev = request.body.pagePrev;
+  const pageItemCount = parseInt(request.body.pageItemCount);
+  console.log('count: ', pageItemCount);
   const defaulImageFallBacks = [
     'https://firebasestorage.googleapis.com/v0/b/showdown-771b8.appspot.com/o/veg.png?alt=media&token=7723f15b-6cb8-4cc4-aa10-1517f6586d77',
     'https://firebasestorage.googleapis.com/v0/b/showdown-771b8.appspot.com/o/cooking1.png?alt=media&token=051c5a47-f54a-4279-9971-c57b725bf80f',
@@ -18,16 +20,16 @@ const getAllRecipesByUser = async (request, response) => {
     .where('username', '==', userName)
     .orderBy('name');
 
-  var first = allRecipes.limit(8);
+  var first = allRecipes.limit(pageItemCount);
   let paginationOption = first;
 
   if (lastItem && pageNext) {
-    const next = allRecipes.startAfter(lastItem).limit(8);
+    const next = allRecipes.startAfter(lastItem).limit(pageItemCount);
     paginationOption = next;
   }
 
   if (firstItem && pagePrev) {
-    const prev = allRecipes.endBefore(firstItem).limit(8);
+    const prev = allRecipes.endBefore(firstItem).limit(pageItemCount);
     paginationOption = prev;
   }
 
