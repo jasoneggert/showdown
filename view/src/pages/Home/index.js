@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router';
-import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
-import Recipes from '../../content/Recipes';
-import CreateRecipe from '../../content/CreateRecipe';
-import Find from '../../content/Find';
-import DeathMatches from '../../content/DeathMatches';
-import styled from 'styled-components';
-import { useAuthedAxios } from '../../hooks/useAuthedAxios';
+import React, { useState } from "react";
+import { useParams } from "react-router";
+import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
+import Recipes from "../../content/Recipes";
+import CreateRecipe from "../../content/CreateRecipe";
+import Find from "../../content/Find";
+import DeathMatches from "../../content/DeathMatches";
+import styled from "styled-components";
+import { useAuthedAxios } from "../../hooks/useAuthedAxios";
 const Home = ({ userDetails }) => {
   const history = useHistory();
   let { view } = useParams();
-  const [currentView, setCurrentView] = useState(view ? view : 'recipes');
+  const [currentView, setCurrentView] = useState(view ? view : "recipes");
 
   const [
     { data: userData, loading: userLoading, error: userError },
@@ -21,7 +21,7 @@ const Home = ({ userDetails }) => {
   }
 
   if (userError) {
-    console.log('error');
+    console.log("error");
   }
 
   const setView = (view) => {
@@ -33,13 +33,13 @@ const Home = ({ userDetails }) => {
     <React.Fragment>
       <ContentContainer>
         <NavContainer>
-          <SubNavButton onClick={(e) => setView('recipes')}>
+          <SubNavButton onClick={(e) => setView("recipes")}>
             Recipes
           </SubNavButton>
-          <SubNavButton onClick={(e) => setView('deathmatches')}>
+          <SubNavButton onClick={(e) => setView("deathmatches")}>
             DeathMatches
           </SubNavButton>
-          <SubNavButton onClick={(e) => setView('find')}>Find</SubNavButton>
+          <SubNavButton onClick={(e) => setView("find")}>Find</SubNavButton>
         </NavContainer>
         <ContentColumn>
           {/* {currentView === 'recipes' && <Recipes setView={setView} />}
@@ -101,7 +101,7 @@ const SubNavButton = styled.button`
   padding: 0 16px;
   cursor: pointer;
   margin: 0 16px;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   letter-spacing: 1px;
 `;
 

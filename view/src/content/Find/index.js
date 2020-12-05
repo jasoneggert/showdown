@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import RecipeCard from '../../uiComponents/RecipeCard';
-import Grid from '@material-ui/core/Grid';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { useAuthedAxiosManual } from '../../hooks/useAuthedAxiosManual';
-import TextField from '@material-ui/core/TextField';
-import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import { baseApiUrl } from '../../util/baseApiUrl';
+import React, { useState } from "react";
+import axios from "axios";
+import RecipeCard from "../../uiComponents/RecipeCard";
+import Grid from "@material-ui/core/Grid";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import { useAuthedAxiosManual } from "../../hooks/useAuthedAxiosManual";
+import TextField from "@material-ui/core/TextField";
+import styled from "styled-components";
+import Button from "@material-ui/core/Button";
+import { baseApiUrl } from "../../util/baseApiUrl";
 const Find = () => {
-  const [recipeString, setRecipeString] = useState('');
+  const [recipeString, setRecipeString] = useState("");
   const [foundRecipes, setFoundRecipes] = useState([]);
   const [{ data, loading }, execute] = useAuthedAxiosManual({});
 
   const findRecipes = () => {
-    const authToken = localStorage.getItem('AuthToken');
+    const authToken = localStorage.getItem("AuthToken");
     axios.defaults.headers.common = { Authorization: `${authToken}` };
     execute({
-      url: `${baseApiUrl()}/find/${recipeString.replace(/\s/g, '-')}`,
-      method: 'get',
+      url: `${baseApiUrl()}/find/${recipeString.replace(/\s/g, "-")}`,
+      method: "get",
     })
       .then((res) => {
-        console.log('res: ', res);
+        console.log("res: ", res);
         setFoundRecipes(data.filter((recipe) => recipe));
       })
       .catch((error) => {

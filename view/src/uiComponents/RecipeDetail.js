@@ -1,22 +1,22 @@
-import React, {Suspense} from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import { useSpring, animated } from 'react-spring/web.cjs'; // web.cjs is required for IE 11 support
-import styled from 'styled-components';
+import React, { Suspense } from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
+import styled from "styled-components";
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   backdrop: {
-    backgroud: 'red'
+    backgroud: "red",
   },
   paper: {
-    backgroundColor: '#fff',
-    border: '2px solid #000',
+    backgroundColor: "#fff",
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -53,8 +53,8 @@ Fade.propTypes = {
   onExited: PropTypes.func,
 };
 
-export default function SpringModal({recipe, handleClose}) {
-  console.log('recipe: ', recipe);
+export default function SpringModal({ recipe, handleClose }) {
+  console.log("recipe: ", recipe);
   const classes = useStyles();
   const open = recipe ? true : false;
   return (
@@ -69,23 +69,23 @@ export default function SpringModal({recipe, handleClose}) {
         BackdropComponent={Backdrop}
         BackdropProps={{
           transitionDuration: 500,
-          classes: classes.backdrop
+          classes: classes.backdrop,
         }}
       >
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id="spring-modal-title">{recipe.name}</h2>
             <ImageContainer>
-            <Suspense>
-              <img src={recipe.image} />
-            </Suspense>
-          </ImageContainer>          </div>
+              <Suspense>
+                <img src={recipe.image} />
+              </Suspense>
+            </ImageContainer>{" "}
+          </div>
         </Fade>
       </Modal>
     </div>
   );
 }
-
 
 const ImageContainer = styled.div`
   width: 100%;

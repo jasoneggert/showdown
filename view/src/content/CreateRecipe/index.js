@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { useAuthedAxiosManual } from '../../hooks/useAuthedAxiosManual';
-import { baseApiUrl } from '../../util/baseApiUrl';
+import React, { useState } from "react";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { useAuthedAxiosManual } from "../../hooks/useAuthedAxiosManual";
+import { baseApiUrl } from "../../util/baseApiUrl";
 
 const CreateRecipe = () => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [prepSteps, setPrepSteps] = useState([]);
-  const [newIngredient, setNewIngredient] = useState('');
-  const [newPrepStep, setNewPrepStep] = useState('');
+  const [newIngredient, setNewIngredient] = useState("");
+  const [newPrepStep, setNewPrepStep] = useState("");
 
   const [
     { data: recipe, loading: recipeLoading, error: recipeError },
@@ -26,7 +26,7 @@ const CreateRecipe = () => {
 
   const addNewIngredient = () => {
     setNewIngredient(ingredients.push(newIngredient));
-    setNewIngredient('');
+    setNewIngredient("");
   };
 
   const handleNewPrepStep = (e) => {
@@ -35,13 +35,13 @@ const CreateRecipe = () => {
 
   const addNewPrepStep = () => {
     setNewPrepStep(prepSteps.push(newPrepStep));
-    setNewPrepStep('');
+    setNewPrepStep("");
   };
 
   const createRecipe = () => {
     execute({
-      url: baseApiUrl() + '/createRecipe',
-      method: 'post',
+      url: baseApiUrl() + "/createRecipe",
+      method: "post",
       data: { name, ingredients, prep: prepSteps },
     });
   };
@@ -69,7 +69,7 @@ const CreateRecipe = () => {
         onChange={handleNewIngredientChange}
         fullWidth
         onKeyPress={(ev) => {
-          if (ev.key === 'Enter') {
+          if (ev.key === "Enter") {
             addNewIngredient();
             ev.preventDefault();
           }
@@ -80,7 +80,7 @@ const CreateRecipe = () => {
         variant="contained"
         color="primary"
         onClick={addNewIngredient}
-        disabled={newIngredient === ''}
+        disabled={newIngredient === ""}
       >
         Add Ingredient
       </Button>
@@ -96,7 +96,7 @@ const CreateRecipe = () => {
         onChange={handleNewPrepStep}
         fullWidth
         onKeyPress={(ev) => {
-          if (ev.key === 'Enter') {
+          if (ev.key === "Enter") {
             addNewPrepStep();
             ev.preventDefault();
           }
@@ -107,7 +107,7 @@ const CreateRecipe = () => {
         variant="contained"
         color="primary"
         onClick={addNewPrepStep}
-        disabled={newPrepStep === ''}
+        disabled={newPrepStep === ""}
       >
         Add Prep Step
       </Button>
@@ -116,7 +116,7 @@ const CreateRecipe = () => {
         variant="contained"
         color="primary"
         onClick={createRecipe}
-        disabled={name === ''}
+        disabled={name === ""}
       >
         Create Recipe
       </Button>

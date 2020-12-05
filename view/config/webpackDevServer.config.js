@@ -1,20 +1,20 @@
-'use strict';
+"use strict";
 
-const fs = require('fs');
-const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
-const evalSourceMapMiddleware = require('react-dev-utils/evalSourceMapMiddleware');
-const noopServiceWorkerMiddleware = require('react-dev-utils/noopServiceWorkerMiddleware');
-const ignoredFiles = require('react-dev-utils/ignoredFiles');
-const redirectServedPath = require('react-dev-utils/redirectServedPathMiddleware');
-const paths = require('./paths');
-const getHttpsConfig = require('./getHttpsConfig');
+const fs = require("fs");
+const errorOverlayMiddleware = require("react-dev-utils/errorOverlayMiddleware");
+const evalSourceMapMiddleware = require("react-dev-utils/evalSourceMapMiddleware");
+const noopServiceWorkerMiddleware = require("react-dev-utils/noopServiceWorkerMiddleware");
+const ignoredFiles = require("react-dev-utils/ignoredFiles");
+const redirectServedPath = require("react-dev-utils/redirectServedPathMiddleware");
+const paths = require("./paths");
+const getHttpsConfig = require("./getHttpsConfig");
 
-const host = process.env.HOST || '0.0.0.0';
+const host = process.env.HOST || "0.0.0.0";
 const sockHost = process.env.WDS_SOCKET_HOST;
 const sockPath = process.env.WDS_SOCKET_PATH; // default: '/sockjs-node'
 const sockPort = process.env.WDS_SOCKET_PORT;
 
-module.exports = function(proxy, allowedHost) {
+module.exports = function (proxy, allowedHost) {
   return {
     // WebpackDevServer 2.4.3 introduced a security fix that prevents remote
     // websites from potentially accessing local content through DNS rebinding:
@@ -33,12 +33,12 @@ module.exports = function(proxy, allowedHost) {
     // specified the `proxy` setting. Finally, we let you override it if you
     // really know what you're doing with a special environment variable.
     disableHostCheck:
-      !proxy || process.env.DANGEROUSLY_DISABLE_HOST_CHECK === 'true',
+      !proxy || process.env.DANGEROUSLY_DISABLE_HOST_CHECK === "true",
     // Enable gzip compression of generated files.
     compress: true,
     // Silence WebpackDevServer's own logs since they're generally not useful.
     // It will still show compile warnings and errors with this setting.
-    clientLogLevel: 'none',
+    clientLogLevel: "none",
     // By default WebpackDevServer serves physical files from current directory
     // in addition to all the virtual build products that it serves from memory.
     // This is confusing because those files won’t automatically be available in
@@ -47,7 +47,7 @@ module.exports = function(proxy, allowedHost) {
     // Instead, we establish a convention that only files in `public` directory
     // get served. Our build script will copy `public` into the `build` folder.
     // In `index.html`, you can get URL of `public` folder with %PUBLIC_URL%:
-    // <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
+    // <link rel='icon' href='%PUBLIC_URL%/favicon.ico'>
     // In JavaScript code, you can access it with `process.env.PUBLIC_URL`.
     // Note that we only recommend to use `public` folder as an escape hatch
     // for files like `favicon.ico`, `manifest.json`, and libraries that are
@@ -65,7 +65,7 @@ module.exports = function(proxy, allowedHost) {
     hot: true,
     // Use 'ws' instead of 'sockjs-node' on server since we're using native
     // websockets in `webpackHotDevClient`.
-    transportMode: 'ws',
+    transportMode: "ws",
     // Prevent a WS client from getting injected as we're already including
     // `webpackHotDevClient`.
     injectClient: false,
@@ -75,7 +75,7 @@ module.exports = function(proxy, allowedHost) {
     sockHost,
     sockPath,
     sockPort,
-    // It is important to tell WebpackDevServer to use the same "publicPath" path as
+    // It is important to tell WebpackDevServer to use the same 'publicPath' path as
     // we specified in the webpack config. When homepage is '.', default to serving
     // from the root.
     // remove last slash so user can land on `/test` instead of `/test/`

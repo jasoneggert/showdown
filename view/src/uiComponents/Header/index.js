@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import deathSkull from '../../svgs/deathSkull';
-import { Blob } from 'react-blob';
+import React from "react";
+import styled from "styled-components";
+import deathSkull from "../../svgs/deathSkull";
+import { Blob } from "react-blob";
 
 const Header = ({ title }) => {
   return (
@@ -11,13 +11,13 @@ const Header = ({ title }) => {
           <Blob
             size="90px"
             style={{
-              position: 'absolute',
-              top: '-10px',
-              right: '-22px',
+              position: "absolute",
+              top: "-10px",
+              right: "-22px",
               zIndex: -1,
-              background: '#000',
-              color: 'white',
-              fontSize: '50vh',
+              background: "#000",
+              color: "white",
+              fontSize: "50vh",
             }}
           />
           {deathSkull()}
@@ -56,13 +56,10 @@ const Logo = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: 'Rakkas', cursive;
+  font-family: "Rakkas", cursive;
   font-size: 36px;
   color: #000;
   /* text-shadow: 2px 0px #01cdfe; */
-
 `;
-
-
 
 export default Header;

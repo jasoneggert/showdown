@@ -1,61 +1,43 @@
-import React, { Suspense } from 'react';
-import {
-  Card,
-  CardActions,
-  Button
-} from '@material-ui/core';
-import styled from 'styled-components';
+import React, { Suspense } from "react";
+import { Card, CardActions, Button } from "@material-ui/core";
+import styled from "styled-components";
 
 const RecipeCard = ({ key, recipe, openView, openEdit, deleteRecipe }) => {
   const handleViewOpen = () => {
-    openView(recipe)
-  }
+    openView(recipe);
+  };
 
   const handleEditClickOpen = () => {
-    openEdit(recipe)
-  }
+    openEdit(recipe);
+  };
 
   const deleterecipeHandler = () => {
-    deleteRecipe(recipe)
-  }
+    deleteRecipe(recipe);
+  };
   return (
-      <GridCard>
-        <CardContent>
-          <Row>
-            <RecipeTitle>
-              {recipe.name}
-            </RecipeTitle>
-            <ImageContainer>
-              <Suspense>
-                <img src={recipe.image}  alt='recipe' />
-              </Suspense>
-            </ImageContainer>
-          </Row>
-        </CardContent>
-        <Actions>
-          <Button
-            size="small"
-            color="primary"
-            onClick={handleViewOpen}
-          >
-            View
-          </Button>
-          <Button
-            size="small"
-            color="primary"
-            onClick={handleEditClickOpen}
-          >
-            Edit
-          </Button>
-          <Button
-            size="small"
-            color="primary"
-            onClick={deleterecipeHandler}
-          >
-            Delete
-          </Button>
-        </Actions>
-      </GridCard>
+    <GridCard>
+      <CardContent>
+        <Row>
+          <RecipeTitle>{recipe.name}</RecipeTitle>
+          <ImageContainer>
+            <Suspense>
+              <img src={recipe.image} alt="recipe" />
+            </Suspense>
+          </ImageContainer>
+        </Row>
+      </CardContent>
+      <Actions>
+        <Button size="small" color="primary" onClick={handleViewOpen}>
+          View
+        </Button>
+        <Button size="small" color="primary" onClick={handleEditClickOpen}>
+          Edit
+        </Button>
+        <Button size="small" color="primary" onClick={deleterecipeHandler}>
+          Delete
+        </Button>
+      </Actions>
+    </GridCard>
   );
 };
 
@@ -64,7 +46,7 @@ const Actions = styled(CardActions)`
 `;
 
 const GridCard = styled.div`
-    padding: 24px 24px 0 24px;
+  padding: 24px 24px 0 24px;
 `;
 
 const CardContent = styled.div`
@@ -98,15 +80,14 @@ const RecipeTitle = styled.div`
   overflow: hidden;
   font-size: 24px;
   word-break: break-all;
-  font-family: 'EB Garamond', serif;
+  font-family: "EB Garamond", serif;
   font-weight: 200;
   padding: 24px;
-  border-top: 1px solid #C1C1C1;
-  border-bottom: 1px solid #C1C1C1;
+  border-top: 1px solid #c1c1c1;
+  border-bottom: 1px solid #c1c1c1;
   width: 65%;
   height: 226px;
   margin-right: 24px;
-
 `;
 
 export default RecipeCard;
