@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
-import { useHistory } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 import Recipes from '../../content/Recipes';
+import CreateRecipe from '../../content/CreateRecipe';
 import Find from '../../content/Find';
 import DeathMatches from '../../content/DeathMatches';
 import styled from 'styled-components';
@@ -12,7 +13,7 @@ const Home = ({ userDetails }) => {
   const [currentView, setCurrentView] = useState(view ? view : 'recipes');
 
   const [
-    { data: userData, loading: userLoading, error: userError }
+    { data: userData, loading: userLoading, error: userError },
   ] = useAuthedAxios(`/user`);
 
   if (userLoading) {
@@ -23,23 +24,41 @@ const Home = ({ userDetails }) => {
     console.log('error');
   }
 
-  const setView = view => {
+  const setView = (view) => {
     history.push(`/app/${view}`);
     setCurrentView(view);
-  }
+  };
 
   return (
     <React.Fragment>
       <ContentContainer>
         <NavContainer>
-          <VaporButton onClick={e => setView('recipes')}>Recipes</VaporButton>
-          <VaporButton onClick={e => setView('deathmatches')}>DeathMatches</VaporButton>
-          <VaporButton onClick={e => setView('find')}>Find</VaporButton>
+          <SubNavButton onClick={(e) => setView('recipes')}>
+            Recipes
+          </SubNavButton>
+          <SubNavButton onClick={(e) => setView('deathmatches')}>
+            DeathMatches
+          </SubNavButton>
+          <SubNavButton onClick={(e) => setView('find')}>Find</SubNavButton>
         </NavContainer>
         <ContentColumn>
-          {currentView === 'recipes' && <Recipes />}
+          {/* {currentView === 'recipes' && <Recipes setView={setView} />}
+          {currentView === 'createRecipe' && <CreateRecipe setView={setView} />}
           {currentView === 'deathmatches' && <DeathMatches />}
-          {currentView === 'find' && <Find />}
+          {currentView === 'find' && <Find />} */}
+
+          <Switch>
+            <Route
+              path="/app/recipes"
+              children={(props) => <Recipes setView={setView} />}
+            />
+            <Route
+              path="/app/createRecipe"
+              children={(props) => <CreateRecipe setView={setView} />}
+            />
+            <Route exact path="/app/deathmatches" component={DeathMatches} />
+            <Route exact path="/app/find" component={Find} />
+          </Switch>
         </ContentColumn>
       </ContentContainer>
     </React.Fragment>
@@ -60,7 +79,7 @@ const ContentColumn = styled.div`
 `;
 
 const NavContainer = styled.div`
-  width:100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -72,10 +91,10 @@ const NavContainer = styled.div`
   position: relative;
 `;
 
-const VaporButton = styled.button`
+const SubNavButton = styled.button`
   background: #000;
   border: 0;
-  border-radius:12px;
+  border-radius: 12px;
   color: #fff;
   font-weight: bold;
   height: 24px;
@@ -84,7 +103,6 @@ const VaporButton = styled.button`
   margin: 0 16px;
   font-family: 'Raleway', sans-serif;
   letter-spacing: 1px;
-
 `;
 
 export default Home;

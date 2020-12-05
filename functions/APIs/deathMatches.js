@@ -12,6 +12,7 @@ const getAllDeathMatches = (request, response) => {
           //deathMatch get schema
           name: doc.data().name,
           totalVotes: doc.data().votes.length,
+          votes: doc.data().votes,
           recipes: doc.data().recipes,
           startDate: doc.data().startDate,
         });
@@ -75,9 +76,7 @@ const voteOnDeathhMatch = (request, response) => {
   if (request.body.recipeId || request.body.createdAt) {
     response.status(403).json({ message: 'Not allowed to edit' });
   }
-  let document = db
-    .collection('deathMatches')
-    .doc(`${request.params.recipeId}`);
+  let document = db.collection('deathMatches').doc(`${request.params.id}`);
   document
     .update(request.body)
     .then(() => {

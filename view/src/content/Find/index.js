@@ -17,19 +17,21 @@ const Find = () => {
     const authToken = localStorage.getItem('AuthToken');
     axios.defaults.headers.common = { Authorization: `${authToken}` };
     execute({
-      url: `${baseApiUrl()}/find/${recipeString.replace(/\s/g, "-")}`,
+      url: `${baseApiUrl()}/find/${recipeString.replace(/\s/g, '-')}`,
       method: 'get',
-    }).then(res => {
-      console.log('res: ', res);
-      setFoundRecipes(data.filter(recipe => recipe));
-    }).catch(error => {
-      console.error(error);
     })
+      .then((res) => {
+        console.log('res: ', res);
+        setFoundRecipes(data.filter((recipe) => recipe));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setRecipeString(e.target.value);
-  }
+  };
 
   return (
     <div>
@@ -45,19 +47,22 @@ const Find = () => {
             fullWidth
           />
         </InputContainer>
-        <FindButton
-          variant="contained"
-          color="primary" onClick={findRecipes}>
+        <FindButton variant="contained" color="primary" onClick={findRecipes}>
           Find
         </FindButton>
       </SearchContainer>
 
-      {loading && <LoadingContainer><span>Finding you some recipes</span><LinearProgress /></LoadingContainer>}
+      {loading && (
+        <LoadingContainer>
+          <span>Finding you some recipes</span>
+          <LinearProgress />
+        </LoadingContainer>
+      )}
       <Grid container spacing={2}>
-          {foundRecipes.map((recipe) => (
-            <RecipeCard recipe={recipe} />
-          ))}
-        </Grid>
+        {foundRecipes.map((recipe) => (
+          <RecipeCard recipe={recipe} />
+        ))}
+      </Grid>
     </div>
   );
 };
@@ -81,8 +86,5 @@ const InputContainer = styled.div`
   width: 333px;
 `;
 
-
-const LoadingContainer = styled.div`
-
-`;
+const LoadingContainer = styled.div``;
 export default Find;

@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -14,11 +10,11 @@ import GlobalStyle from './GlobalStyle';
 function App() {
   return (
     <div>
-      <GlobalStyle/>
+      <GlobalStyle />
       <Header title={'The Recipe DeathMatch'} />
       <BrowserRouter>
         <Switch>
-          <PrivateRoute exact path="/app/:view?" component={Home} />
+          <PrivateRoute path="/app" component={Home} />
           <Route exact path="/" component={PublicPage} />
 
           <Route exact path="/login" component={Login} />

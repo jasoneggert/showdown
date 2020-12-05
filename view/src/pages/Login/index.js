@@ -52,17 +52,6 @@ class Login extends Component {
     };
   }
 
-  // componentWillReceiveProps(nextProps) {
-  // 	if("errors" in nextProps.UI){
-  // 		if (nextProps.UI.errors) {
-  // 		this.setState({
-  // 			errors: nextProps.UI.errors
-  // 		});
-  // 	}
-  // 	}
-
-  // }
-
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -87,7 +76,6 @@ class Login extends Component {
       })
       .catch((error) => {
         console.log('error: ', error);
-
       });
   };
 
