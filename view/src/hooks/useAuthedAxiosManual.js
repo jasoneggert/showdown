@@ -2,7 +2,6 @@ import axios from 'axios';
 import useAxios from 'axios-hooks';
 import { authMiddleWare } from '../util/auth';
 import { useHistory } from 'react-router-dom';
-import { baseApiUrl } from '../util/baseApiUrl';
 export const useAuthedAxiosManual = (options) => {
   const history = useHistory();
   authMiddleWare(history);
